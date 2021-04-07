@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+    
+    
+<!--    Title-->
+    <RelativeLayout
+        android:id="@+id/header_layout_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/label_quantity"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="Qty"
+            android:layout_width="100dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+
+
+            android:id="@+id/label_item"
+            android:layout_toRightOf="@+id/label_quantity"
+
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="Item"
+            android:layout_width="150dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/label_price"
+            android:layout_toRightOf="@id/label_item"
+
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="Price"
+            
+            android:layout_width="130dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        
+    </RelativeLayout>
+
+
+<!--    data-->
+    <RelativeLayout
+        android:id="@+id/data_layout_ID"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_quantity"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorBlack"
+            android:text="1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_item"
+            android:layout_toRightOf="@+id/txt_quantity"
+
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorBlack"
+            android:text="Moto Brikets 50 Kg"
+            android:textAlignment="viewStart"
+            android:layout_gravity="start"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_toRightOf="@+id/txt_item"
+
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:textColor="@color/colorBlack"
+            android:text="2,000/="
+            
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+    
+    
+    
+
+</LinearLayout>

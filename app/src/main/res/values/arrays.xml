@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ld_activityScreenTitles">
+        <item>Customer</item>
+        <item>Order</item>
+        <item>Payment</item>
+        <item>**OTHER**</item>
+        <item />
+        <item>Log Out</item>
+    </string-array>
+
+    <array name="ld_activityScreenIcons">
+        <item>@drawable/ic_home_outline_grey600_24dp</item>
+        <item>@drawable/ic_account_outline_grey600_24dp</item>
+        <item>@drawable/ic_email_outline_grey600_24dp</item>
+        <item>@drawable/ic_cart_outline_grey600_24dp</item>
+        <item>0</item>
+        <item>@drawable/ic_logout_grey600_24dp</item>
+    </array>
+
+    <string-array name="sp_add_customer_type">
+        <item>Type</item>
+        <item>Hotel</item>
+        <item>Individual</item>
+        <item>Restaurant</item>
+        <item>School</item>
+        <item>Camp</item>
+        <item>Institution</item>
+    </string-array>
+
+    <string-array name="sp_select_customer">
+        <item>@string/et_select_customer</item>
+
+    </string-array>
+    <string-array name="sp_payment_method">
+        <item>Payment Method</item>
+    </string-array>
+
+    <string-array name="sp_add_customer_area">
+        <item>Area</item>
+    </string-array>
+
+</resources>

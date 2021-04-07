@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:paddingRight="3dp">
+
+
+    <ImageButton
+        android:id="@+id/btn_menu"
+        android:visibility="gone"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/menu_squared_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/search_layout_ID"
+        android:visibility="visible"
+        android:layout_marginRight="45dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/search_layout_bg"
+        android:gravity="center"
+        android:layout_height="30dp">
+
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/search_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:textColorHint="@color/colorGrey"
+            android:hint="Search Orders"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:paddingBottom="0dp"
+            android:background="@null"
+            android:paddingRight="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+
+
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/btn_logout"
+        android:background="@drawable/back_button"
+        android:layout_alignParentRight="true"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        />
+
+</RelativeLayout>

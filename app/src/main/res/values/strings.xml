@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">DeliveryApp</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_sign_in">SIGN IN</string>
+
+    <string name="powered_by_text">Powered by Delivery Management System</string>
+
+    <string name="btn_complete">Complete Order</string>
+
+    <string name="btn_add_customer">Add Customer</string>
+    <string name="btn_save">Save</string>
+
+    <string name="et_hint_customer_name">Customer Name</string>
+    <string name="et_hint_contact_person">Contact Person</string>
+    <string name="et_hint_telephone_number">Telephone Number</string>
+    <string name="et_hint_email_address">Email Address</string>
+    <string name="et_hint_location">Location</string>
+
+    <string name="et_hint_payment_date">Payment Date</string>
+    <string name="et_hint_payment_method">Payment Method</string>
+    <string name="et_hint_reference">Reference</string>
+    <string name="et_hint_amount">Amount</string>
+
+    <string name="header_contact_details">Contact Details</string>
+    <string name="header_location_details">Location Details</string>
+
+    <string name="et_select_customer">Select Customer</string>
+    <string name="et_location">Location</string>
+    <string name="et_order_date">Order Date</string>
+    <string name="rd_retail">Retail</string>
+    <string name="rd_wholesale">Wholesale</string>
+    <string name="rd_delivery">Delivery</string>
+    <string name="rd_pickup">Pickup</string>
+    <string name="lbl_select_Items">Select Items</string>
+    <string name="lbl_item">Item</string>
+    <string name="lbl_qty">Qty</string>
+    <string name="lbl_total">Total</string>
+    <string name="lbl_save_order">Save Order</string>
+
+
+
+<!--    LEFT DRAWER-->
+    <string name="srn_drawer_open">Open</string>
+    <string name="srn_drawer_close">Close</string>
+
+    <string name="srn_ex_no_menu_view">No view for menu provided. You must either call .withMenuView(View) or pass a valid resource id to .withMenuLayout(int)</string>
+    <string name="srn_ex_bad_content_view">Your content view must contain exactly one child. Make sure you call inject() after setContentView().</string>
+
+
+    <string name="account_balance">Account Balance</string>
+    <string name="balance_currency">$</string>
+    <string name="balance_amount">524.99</string>
+
+</resources>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/order_status"
+            android:layout_marginTop="2dp"
+            android:layout_width="12dp"
+            android:src="@drawable/red_circle"
+            android:layout_height="12dp"/>
+
+        <TextView
+            android:layout_marginLeft="13dp"
+            android:text="Status - Not completed, Not Paid "
+            android:textSize="10sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        app:cardElevation="0dp"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:padding="12dp"
+            android:orientation="horizontal"
+            android:background="@drawable/view_customer_item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Order no: "
+                    android:textSize="11sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="18 "
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Order Date: "
+                    android:textSize="11sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="19/02/2021"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/view_individual_order_items_ordered_layout_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="11sp"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            android:text="ITEMS ORDERED"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/view_individual_order_inner_sub_item_layout"
+            android:layout_height="70dp">
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:id="@+id/btn_edit"
+                android:layout_marginTop="20dp"
+                android:layout_width="25dp"
+                android:src="@drawable/edit_icon"
+                android:layout_height="25dp"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_toLeftOf="@+id/txt_amount_to_pay"
+            android:text="Amount to pay:   "
+            android:textSize="11sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_amount_to_pay"
+            android:layout_alignParentRight="true"
+            android:text="2,200/="
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_receive_payment"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        app:cardElevation="0dp"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:background="@drawable/view_customer_item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:layout_width="25dp"
+                android:src="@drawable/credit_card_icon"
+                android:layout_height="25dp"/>
+
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:paddingLeft="10dp"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:text="Received Payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="0dp"
+                android:layout_width="20dp"
+                android:src="@drawable/right_icon"
+                android:layout_height="20dp"/>
+
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/other_btn_bg"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:text="@string/btn_complete"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+
+
+</LinearLayout>
