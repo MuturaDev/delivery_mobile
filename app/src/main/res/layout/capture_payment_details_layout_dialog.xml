@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="290dp"
+android:layout_width="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:paddingTop="5dp"
+    android:id="@+id/capture_payment_details"
 app:cardCornerRadius="5dp" app:cardElevation="5dp"
 android:background="@drawable/view_individual_order_items_ordered_layout_bg"
 android:layout_height="match_parent">
@@ -28,6 +29,7 @@ android:layout_height="match_parent">
             android:layout_alignParentLeft="true"
             android:text="Capture Payment Details"
             android:textSize="15sp"
+            android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
@@ -57,12 +59,18 @@ android:layout_height="match_parent">
 
 
         <EditText
+            android:id="@+id/payment_date"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginRight="10dp"
             android:hint="@string/et_hint_payment_date"
             android:background="@null"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:enabled="true"
+            android:fontFamily="@font/poppins_regular"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
@@ -90,7 +98,7 @@ android:layout_height="match_parent">
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
@@ -100,7 +108,7 @@ android:layout_height="match_parent">
 
 
         <Spinner
-            android:id="@+id/sp_customer_type"
+            android:id="@+id/sp_payment_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -108,6 +116,7 @@ android:layout_height="match_parent">
             android:layout_marginLeft="5dp"
             android:paddingLeft="20dp"
             android:textSize="13sp"
+            android:fontFamily="@font/poppins_regular"
             android:layout_marginRight="25dp"
             android:background="@android:color/transparent"
             android:entries="@array/sp_payment_method"
@@ -141,13 +150,16 @@ android:layout_height="match_parent">
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/txt_reference"
         android:layout_width="match_parent"
+
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="@string/et_hint_reference"
         android:background="@drawable/edit_text_layout_bg"
         android:layout_height="45dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_regular"
         android:textSize="14sp"
         android:paddingLeft="30dp"
         android:textColorHint="@color/colorBlack"
@@ -156,6 +168,7 @@ android:layout_height="match_parent">
         android:singleLine="true" />
 
     <EditText
+        android:id="@+id/txt_amount"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
@@ -163,22 +176,24 @@ android:layout_height="match_parent">
         android:hint="@string/et_hint_amount"
         android:background="@drawable/edit_text_layout_bg"
         android:layout_height="45dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
         android:paddingLeft="30dp"
         android:textColorHint="@color/colorBlack"
         android:textStyle="normal"
-        android:inputType="text"
+        android:inputType="number"
         android:singleLine="true" />
 
     <Button
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/btn_save"
         android:layout_gravity="right"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="0dp"
         android:layout_width="100dp"
         android:layout_height="40dp"
+        android:fontFamily="@font/poppins_bold"
         android:layout_marginTop="10dp"
         android:background="@drawable/login_btn_bg"
         android:padding="10dp"

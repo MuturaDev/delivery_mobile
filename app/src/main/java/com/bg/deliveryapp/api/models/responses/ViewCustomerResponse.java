@@ -4,9 +4,10 @@ import com.bg.deliveryapp.api.models.responses.subResponses.ClientSubResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ViewCustomerResponse {
+public class ViewCustomerResponse implements Serializable {
 
     @SerializedName("content")
     @Expose

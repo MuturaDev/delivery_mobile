@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="85dp"
+    android:layout_marginTop="5dp"
+    android:padding="10dp">
+
+    <!--     android:src="@drawable/white_circle"-->
+    <LinearLayout
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:layout_alignParentLeft="true"
+            android:id="@+id/delivery_status"
+            android:layout_marginTop="2dp"
+            android:layout_width="12dp"
+            android:src="@drawable/blue_circle"
+            android:elevation="5dp"
+            android:layout_height="12dp"/>
+
+        <TextView
+            android:id="@+id/delivery_name"
+            android:layout_marginLeft="15dp"
+            android:text="@string/rd_retail"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

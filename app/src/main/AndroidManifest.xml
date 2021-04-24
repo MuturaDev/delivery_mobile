@@ -5,6 +5,7 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
     <application
@@ -16,7 +17,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         android:usesCleartextTraffic="true"
-        android:name="com.orm.SugarApp">
+        android:name="DeliveryApp">
 
         <meta-data android:name="DATABASE" android:value="delivery_app_database.db" />
         <meta-data android:name="VERSION" android:value="1" />
@@ -42,6 +43,16 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+
+
+
+        <receiver
+            android:name=".networkcheck.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

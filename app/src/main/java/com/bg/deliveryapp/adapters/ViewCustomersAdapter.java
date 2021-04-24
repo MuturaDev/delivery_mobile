@@ -1,20 +1,19 @@
 package com.bg.deliveryapp.adapters;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bg.deliveryapp.MainActivity;
 import com.bg.deliveryapp.R;
 import com.bg.deliveryapp.api.models.responses.subResponses.ClientSubResponse;
-import com.bg.deliveryapp.ui.EditCustomerFragment;
+import com.bg.deliveryapp.ui.ViewCustomerFragment;
 
 
 import java.util.List;
@@ -22,10 +21,10 @@ import java.util.List;
 public class ViewCustomersAdapter extends RecyclerView.Adapter<ViewCustomersAdapter.CustomViewHolder> {
 
     private List<ClientSubResponse> dataList;
-    private Context context;
+    private ViewCustomerFragment context;
     private MainActivity activity;
 
-    public ViewCustomersAdapter(MainActivity activity,Context context ,List<ClientSubResponse> dataList){
+    public ViewCustomersAdapter(MainActivity activity,ViewCustomerFragment context ,List<ClientSubResponse> dataList){
         this.context = context;
        this.dataList = dataList;
        this.activity = activity;
@@ -35,6 +34,7 @@ public class ViewCustomersAdapter extends RecyclerView.Adapter<ViewCustomersAdap
 
         private TextView label_name, label_phonenumber, label_location;
         private ImageView btn_edit;
+        private CardView view_customer_activity_item_layout_id;
 
         CustomViewHolder(View itemView) {
             super(itemView);
@@ -42,20 +42,42 @@ public class ViewCustomersAdapter extends RecyclerView.Adapter<ViewCustomersAdap
             label_phonenumber = itemView.findViewById(R.id.label_phonenumber);
             label_location = itemView.findViewById(R.id.label_location);
             btn_edit = itemView.findViewById(R.id.btn_edit);
+            view_customer_activity_item_layout_id = itemView.findViewById(R.id.view_customer_activity_item_layout_id);
 
         }
         
         
-        public void bind(ClientSubResponse response){
+        public void bind(final ClientSubResponse response){
             label_name.setText(response.getFirstname() + " " + response.getLastname());
             label_phonenumber.setText(response.getPhoneNumber());
             label_location.setText(response.getLocation());
-            btn_edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   activity.displayFragment("Add Customer");
-                }
-            });
+
+            try{
+                btn_edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activity.displayFragment("Edit Customer",response);
+                    }
+                });
+                view_customer_activity_item_layout_id.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if((context.message != null)){
+                            if(context.message.equalsIgnoreCase("Select Customer")){
+                                activity.displayFragment("Add Order",response);
+                            }else{
+                                btn_edit.performClick();
+                            }
+                        }else{
+                            btn_edit.performClick();
+                        }
+
+                    }
+                });
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+
         }
     }
 

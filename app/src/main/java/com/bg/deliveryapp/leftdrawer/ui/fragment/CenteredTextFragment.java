@@ -21,10 +21,10 @@ public class CenteredTextFragment extends Fragment {
 
     private static final String EXTRA_TEXT = "text";
 
-    public static CenteredTextFragment createFor(String text) {
+    public static CenteredTextFragment createFor(Object message) {
         CenteredTextFragment fragment = new CenteredTextFragment();
         Bundle args = new Bundle();
-        args.putString(EXTRA_TEXT, text);
+        args.putString(EXTRA_TEXT, (String) message);
         fragment.setArguments(args);
         return fragment;
     }

@@ -39,6 +39,7 @@
             android:textSize="12sp"
             android:textAlignment="center"
             android:paddingBottom="0dp"
+            android:fontFamily="@font/poppins_regular"
             android:background="@null"
             android:paddingRight="15dp"
             android:layout_gravity="center"

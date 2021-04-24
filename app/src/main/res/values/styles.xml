@@ -15,5 +15,16 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+
+<!--    http://www.devexchanges.info/2015/10/showing-dialog-with-animation-in-android.html-->
+    <style name="DialogAnimation">
+    <item name="android:windowEnterAnimation">@anim/bottom_up</item>
+    <item name="android:windowExitAnimation">@anim/bottom_down</item>
+    </style>
+
 
 </resources>

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        tools:listitem="@layout/view_orders_activity_item_layout"
+        tools:listitem="@layout/view_unpaid_order_item_layout"
         />
 
 

@@ -20,10 +20,10 @@ public class MakePaymentFragment extends Fragment {
 
     private static final String EXTRA_TEXT = "text";
 
-    public static MakePaymentFragment createFor(String text) {
+    public static MakePaymentFragment createFor(Object message) {
         MakePaymentFragment fragment = new MakePaymentFragment();
         Bundle args = new Bundle();
-        args.putString(EXTRA_TEXT, text);
+        args.putString(EXTRA_TEXT, (String) message);
         fragment.setArguments(args);
         return fragment;
     }

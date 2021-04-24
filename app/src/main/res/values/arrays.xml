@@ -35,6 +35,9 @@
     </string-array>
     <string-array name="sp_payment_method">
         <item>Payment Method</item>
+        <item>Cash</item>
+        <item>Mpesa</item>
+        <item>Cheque</item>
     </string-array>
 
     <string-array name="sp_add_customer_area">

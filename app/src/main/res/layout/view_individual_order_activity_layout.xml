@@ -8,36 +8,84 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:layout_marginLeft="40dp"
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="0dp"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_alignParentLeft="true"
             android:id="@+id/order_status"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:layout_width="12dp"
             android:src="@drawable/red_circle"
             android:layout_height="12dp"/>
 
-        <TextView
-            android:layout_marginLeft="13dp"
-            android:text="Status - Not completed, Not Paid "
-            android:textSize="10sp"
-            android:textColor="@color/colorBlack"
+        <LinearLayout
+            android:layout_toRightOf="@+id/order_status"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:text="Order Status  -  "
+                android:textSize="11sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/order_status_text"
+                android:text="Not completed;"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+           android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:text="Payment Status  - "
+                android:textSize="11sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/payment_status_text"
+                android:layout_marginLeft="5dp"
+                android:text="Not Paid"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         app:cardElevation="0dp"
@@ -45,7 +93,7 @@
 
 
         <RelativeLayout
-            android:padding="12dp"
+            android:padding="13dp"
             android:orientation="horizontal"
             android:background="@drawable/view_customer_item_bg"
             android:layout_width="match_parent"
@@ -61,13 +109,16 @@
                     android:text="Order no: "
                     android:textSize="11sp"
                     android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/order_number"
                     android:text="18 "
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -87,12 +138,15 @@
                     android:text="Order Date: "
                     android:textSize="11sp"
                     android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/order_date"
                     android:text="19/02/2021"
                     android:textSize="12sp"
+                    android:fontFamily="@font/poppins_bold"
                     android:textStyle="bold"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
@@ -110,55 +164,128 @@
     <LinearLayout
         android:layout_marginTop="10dp"
         android:padding="10dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/view_individual_order_items_ordered_layout_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:textSize="11sp"
-            android:layout_marginBottom="15dp"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            android:text="ITEMS ORDERED"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingLeft="10dp"
-            android:layout_width="match_parent"
-            tools:listitem="@layout/view_individual_order_inner_sub_item_layout"
-            android:layout_height="70dp">
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
+<!--        incase you need the view to items ordered to appear and disappear, if the products are so many and still need to see the payments list-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="11sp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/poppins_regular"
+                android:text="ITEMS ORDERED"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:id="@+id/btn_edit"
-                android:layout_marginTop="20dp"
-                android:layout_width="25dp"
-                android:src="@drawable/edit_icon"
-                android:layout_height="25dp"/>
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:id="@+id/header_layout_ID"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/label_quantity"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                   android:textAlignment="textStart"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/colorBlack"
+                    android:text="Qty"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+
+
+                    android:id="@+id/label_item"
+                    android:layout_toRightOf="@+id/label_quantity"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorBlack"
+                    android:text="Item"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/label_price"
+                    android:layout_toRightOf="@id/label_item"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:text="Price"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProducts"
+                android:paddingLeft="15dp"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/view_individual_order_inner_sub_item_layout"
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/btn_edit"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="25dp"
+                    android:src="@drawable/edit_icon"
+                    android:layout_height="25dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
+
 
 
     </LinearLayout>
 
     <RelativeLayout
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentLeft="true"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -166,9 +293,10 @@
 
         <TextView
             android:layout_toLeftOf="@+id/txt_amount_to_pay"
-            android:text="Amount to pay:   "
+            android:text="Amt to pay:   "
             android:textSize="11sp"
             android:textColor="@color/colorBlack"
+            android:fontFamily="@font/poppins_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -177,6 +305,7 @@
             android:layout_alignParentRight="true"
             android:text="2,200/="
             android:textSize="12sp"
+            android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
@@ -190,7 +319,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_receive_payment"
         android:layout_width="match_parent"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         app:cardElevation="0dp"
@@ -218,6 +347,7 @@
                 android:textSize="13sp"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Received Payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -237,19 +367,154 @@
 
 
     <Button
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:id="@+id/btn_login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/btn_complete_order"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/other_btn_bg"
         android:padding="10dp"
+        android:fontFamily="@font/poppins_bold"
         android:textStyle="bold"
         android:textSize="12sp"
         android:text="@string/btn_complete"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/view_individual_order_items_ordered_layout_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--        incase you need the view to items ordered to appear and disappear, if the products are so many and still need to see the payments list-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                android:textSize="11sp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/poppins_regular"
+                android:text="ITEMS PAYMENTS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/data_layout_ID"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:id="@+id/txt_date"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorBlack"
+                    android:text="Date"
+                    android:textAlignment="textStart"
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txt_amount"
+                    android:layout_toRightOf="@+id/txt_date"
+
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorBlack"
+                    android:text="Amount"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txt_method"
+                    android:layout_toRightOf="@+id/txt_amount"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorBlack"
+                    android:text="Type"
+                    android:paddingLeft="5dp"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/txt_ref"
+                    android:layout_toRightOf="@+id/txt_method"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="Ref "
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorBlack"
+                    android:text=""
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPayments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="0dp"
+                tools:listitem="@layout/view_individual_order_inner_sub_payment_item_layout"></androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
 
 
 

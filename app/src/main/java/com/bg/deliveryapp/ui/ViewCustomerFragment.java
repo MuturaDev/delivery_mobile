@@ -1,11 +1,17 @@
 package com.bg.deliveryapp.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,7 +25,11 @@ import com.bg.deliveryapp.api.ApiService;
 import com.bg.deliveryapp.api.ServiceGenerator;
 import com.bg.deliveryapp.api.models.responses.AuthenticationResponse;
 import com.bg.deliveryapp.api.models.responses.ViewCustomerResponse;
+import com.bg.deliveryapp.api.models.responses.subResponses.ClientSubResponse;
+import com.bg.deliveryapp.api.models.responses.subResponses.PendingOrderContent;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,42 +54,65 @@ public class ViewCustomerFragment extends Fragment {
     //https://www.journaldev.com/24041/android-recyclerview-load-more-endless-scrolling
     //https://howtodoandroid.medium.com/shimmer-effect-for-android-recyclerview-example-a9315b46cdc0
     private void populateRecyclerView(){
-        progress_circular.setVisibility(View.VISIBLE);
+        if(((MainActivity)getActivity()) != null){
+            progress_circular.setVisibility(View.VISIBLE);
+            activity.no_content_after_filter.setVisibility(View.GONE);
 
-        Object object = AuthenticationResponse.listAll(AuthenticationResponse.class);
-        if(object!= null)
-            if(((List<AuthenticationResponse>) object).size() > 0)
-               authenticationResponse = ((List<AuthenticationResponse>) object).get(0);
+            Object object = AuthenticationResponse.listAll(AuthenticationResponse.class);
+            if(object!= null)
+                if(((List<AuthenticationResponse>) object).size() > 0)
+                    authenticationResponse = ((List<AuthenticationResponse>) object).get(0);
 
-        if(authenticationResponse != null){
-            ApiService apiService =
-                    ServiceGenerator.createService(ApiService.class, authenticationResponse.getUsername(), authenticationResponse.getPassword());
+            if(authenticationResponse != null){
+                ApiService apiService =
+                        ServiceGenerator.createService(ApiService.class, authenticationResponse.getUsername(), authenticationResponse.getPassword());
 
-            Call<ViewCustomerResponse> call = apiService.getCustomers(((MainActivity)getActivity()).et_search.getText().toString().trim(), 1,10);
-            call.enqueue(new Callback<ViewCustomerResponse>() {
-                @Override
-                public void onResponse(Call<ViewCustomerResponse> call, Response<ViewCustomerResponse> response) {
+                String filterText = ((MainActivity)getActivity()).et_search.getText().toString().trim();
 
-                    if(response.isSuccessful()){
-                        if(response.code() == 200){
-                            adapter = new ViewCustomersAdapter(activity,getActivity(),response.body().getContent());
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+                Call<ViewCustomerResponse> call = apiService.getCustomers(filterText, 1,10);
+                call.enqueue(new Callback<ViewCustomerResponse>() {
+                    @Override
+                    public void onResponse(Call<ViewCustomerResponse> call, Response<ViewCustomerResponse> response) {
+
+                        if(response.isSuccessful()){
+                            if(response.code() == 200){
+
+                                List<ClientSubResponse> dataList = new ArrayList<>();
+                                for(int i=0; i<response.body().getContent().size(); i++){
+                                    ClientSubResponse dataItem = response.body().getContent().get(i);
+                                        //filter
+
+                                       // if(TextUtils.isEmpty(filterText)){
+                                            dataList.add(dataItem);
+//                                        }else{
+//                                            if((dataItem.getFirstname() + " " + dataItem.getLastname()).toLowerCase().contains(filterText.toLowerCase())
+//                                                    || dataItem.getPhoneNumber().toLowerCase().contains(filterText.toLowerCase())){
+//                                                dataList.add(dataItem);
+//                                            }
+//                                        }
+                                }
+
+                                adapter = new ViewCustomersAdapter(activity,ViewCustomerFragment.this,dataList);
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+
+                                if(((MainActivity) getActivity()) != null)
+                                ((MainActivity) getActivity()).showNoContentAfterFilter( dataList.size(), activity);
+                            }
                         }
+
+                        progress_circular.setVisibility(View.GONE);
                     }
 
-                    progress_circular.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<ViewCustomerResponse> call, Throwable t) {
-                    progress_circular.setVisibility(View.GONE);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<ViewCustomerResponse> call, Throwable t) {
+                        progress_circular.setVisibility(View.GONE);
+                    }
+                });
+            }
         }
-
 
     }
     
@@ -88,10 +121,11 @@ public class ViewCustomerFragment extends Fragment {
     //conver to fragment
     private static final String EXTRA_TEXT = "text";
 
-    public static ViewCustomerFragment createFor(String text) {
+
+    public static ViewCustomerFragment createFor(Object message) {
         ViewCustomerFragment fragment = new ViewCustomerFragment();
         Bundle args = new Bundle();
-        args.putString(EXTRA_TEXT, text);
+        args.putSerializable(EXTRA_TEXT, (Serializable) message);
         fragment.setArguments(args);
         return fragment;
     }
@@ -104,17 +138,17 @@ public class ViewCustomerFragment extends Fragment {
 
     private ProgressBar progress_circular;
 
+    public String message;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
-        final String text = args != null ? args.getString(EXTRA_TEXT) : "";
-//        TextView textView = view.view.findViewById(R.id.text);
-//        textView.setText(text);
-//        textView.setOnClickListener(new View.OnClickListener() {
-//            @Override public void onClick(View v) {
-//                Toast.makeText(v.getContext(), text, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        message = args != null ? (String) args.getSerializable(EXTRA_TEXT) : null;
+
+
+
+        LinearLayout search_layout_ID_select_customer = view.findViewById(R.id.search_layout_ID_select_customer);
+        EditText et_search_select_customer = view.findViewById(R.id.et_search_select_customer);
 
         activity = (MainActivity) getActivity();
 
@@ -124,17 +158,78 @@ public class ViewCustomerFragment extends Fragment {
         progress_circular = view.findViewById(R.id.progress_circular);
 
 
-
         populateRecyclerView();
-
 
         btn_add_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.displayFragment("Add Customer");
+                activity.displayFragment("Add Customer", null);
             }
         });
+
+
+        ((MainActivity) getActivity()).et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                populateRecyclerView();
+            }
+        });
+
+
+        final Object message = args != null ? args.getSerializable(EXTRA_TEXT) : "";
+        if(message instanceof  String){
+            if(message.equals("Select Customer")){
+                activity.getSupportActionBar().hide();
+                search_layout_ID_select_customer.setVisibility(View.VISIBLE);
+                et_search_select_customer.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        activity.et_search.setText(s.toString());
+                    }
+                });
+            }
+        }
+
     }
+
+//    @Override
+//    public void onPause() {
+//        activity.showNoContentAfterFilter(-1);
+//        super.onPause();
+//    }
+
+    @Override
+    public void onStop() {
+        activity.showNoContentAfterFilter(-1, activity);
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        ((MainActivity)getActivity()).showNoContentAfterFilter(-1, activity);
+        super.onDestroy();
+    }
+
 
 
 }

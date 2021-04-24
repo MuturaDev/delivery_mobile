@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -43,6 +48,13 @@ dependencies {
     implementation 'com.github.IntruderShanky:Sectioned-RecyclerView:2.1.1'
 
     implementation 'com.github.satyan:sugar:1.3'
+
+    implementation 'com.github.pratikbutani:MultiSelectSpinner:f47c0dadea'
+
+    implementation 'com.github.SalahoAmro:NetDetect:1.0.0'
+
+
+
 
 
     testImplementation 'junit:junit:4.12'

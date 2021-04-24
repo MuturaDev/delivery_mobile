@@ -3,7 +3,9 @@ package com.bg.deliveryapp.api.models.responses.subResponses;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ClientSubResponse {
+import java.io.Serializable;
+
+public class ClientSubResponse implements Serializable {
 
     @SerializedName("clientId")
     @Expose
@@ -39,6 +41,9 @@ public class ClientSubResponse {
     @Expose
     private AreaSubResponse area;
 
+
+    public ClientSubResponse() {
+    }
 
     public ClientSubResponse(Integer clientId, String firstname, String lastname, String contactPerson, String type, String email, String phoneNumber, String phoneNumber2, String phoneNumber3, String location, AreaSubResponse area) {
         this.clientId = clientId;

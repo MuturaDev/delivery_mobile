@@ -28,17 +28,17 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_alignParentLeft="true"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:background="@drawable/any_direction_icon"/>
 
             <TextView
                 android:id="@+id/child"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_toRightOf="@+id/left_image"
                 android:layout_marginLeft="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
                 android:padding="8dp"
                 android:text="mc sjcnscdj "
                 android:textSize="16sp" />
@@ -48,6 +48,7 @@
         <LinearLayout
             android:id="@+id/paid_unpaid_orders"
             android:orientation="vertical"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -71,9 +72,9 @@
                     android:id="@+id/sub_child"
                     android:layout_toRightOf="@+id/left_image_sub_menu"
                     android:layout_marginLeft="2dp"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
                     android:padding="8dp"
                     android:text="Pending Orders"
                     android:textSize="16sp" />
@@ -93,6 +94,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_alignParentLeft="true"
                     android:layout_width="20dp"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_height="20dp"
                     android:background="@drawable/any_direction_icon"/>
 
@@ -102,7 +104,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
+                    android:fontFamily="@font/poppins_regular"
                     android:padding="8dp"
                     android:text="Unpaid Orders"
                     android:textSize="16sp" />
