@@ -89,8 +89,8 @@ public class CreateOrderProductAdapter extends RecyclerView.Adapter<CreateOrderP
     public void onBindViewHolder(CustomViewHolder holder,final int position) {
 
         holder.txt_item_name.setText(fragment.dataProductsList.get(position).getDesc());
-        holder.txt_quantity.setText("1");
-        fragment.dataProductsList.get(position).setQuantity(String.valueOf(1));
+        holder.txt_quantity.setText(fragment.dataProductsList.get(position).getQuantity());
+        holder.txt_price.setText(fragment.dataProductsList.get(position).getTotalPrice());
         computeSum(Long.valueOf(holder.txt_quantity.getText().toString()), holder,fragment.dataProductsList.get(position).getId(), position);
 
         holder.txt_quantity.addTextChangedListener(new TextWatcher() {

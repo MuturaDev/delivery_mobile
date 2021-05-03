@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
 
 
-    public void showSuccessDialog(String title, String message, String btnStatus, boolean status,String backTo){
+    public void showSuccessDialog(String title, String message, String btnStatus, boolean status,Object... backTo){
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this,R.style.AlertDialogTheme);
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.layout_succes_dialog, (ConstraintLayout) findViewById(R.id.layout_dialog_container));
         builder.setView(view);
@@ -136,8 +136,13 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         view.findViewById(R.id.buttonAction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(backTo != null){
-                    displayFragment(backTo, null);
+                    if(backTo.length > 0)
+                    if(backTo[0] instanceof  String) {
+                        String backToString =  (String) backTo[0];
+                        displayFragment(backToString, null);
+                    }
                 }
 
                 alertDialog.dismiss();
@@ -379,7 +384,12 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                 showFragment(AddCustomerFragment.createFor(message));
                 break;
             case "Add Order":
-                top_master_activity_header_with_backleft_layout("New Order", true);
+                if(message instanceof PendingOrderContent){
+                    top_master_activity_header_with_backleft_layout("Edit Order", true);
+                }else{
+                    top_master_activity_header_with_backleft_layout("New Order", true);
+                }
+
                 top_master_activity_header_with_backright_layout("", false);
                 top_master_action_bar_layout(false, null);
                 showFragment(CreateOrderFragment.createFor(message));

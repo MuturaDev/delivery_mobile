@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.bg.deliveryapp.MainActivity;
 import com.bg.deliveryapp.R;
 import com.bg.deliveryapp.adapters.OrderDetailsProductListAdapter;
 import com.bg.deliveryapp.adapters.OrderPaymentsListAdapter;
+import com.bg.deliveryapp.adapters.ViewUnpaidOrdersAdapter;
 import com.bg.deliveryapp.api.ApiService;
 import com.bg.deliveryapp.api.ServiceGenerator;
 import com.bg.deliveryapp.api.models.requests.EditCustomerRequest;
@@ -31,6 +33,7 @@ import com.bg.deliveryapp.api.models.requests.MakePaymentRequest;
 import com.bg.deliveryapp.api.models.responses.AuthenticationResponse;
 import com.bg.deliveryapp.api.models.responses.OrderPaymentsListResponse;
 import com.bg.deliveryapp.api.models.responses.OrderProductsDetailsResponse;
+import com.bg.deliveryapp.api.models.responses.PendingOrdersResponse;
 import com.bg.deliveryapp.api.models.responses.subResponses.PendingOrderContent;
 import com.bg.deliveryapp.pickers.DatePickerFragment;
 
@@ -40,6 +43,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,9 +80,12 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
     private MainActivity activity;
     private RecyclerView recyclerViewProducts;
     private Button btn_complete_order;
+    private ImageView btn_edit;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        activity = (MainActivity)getActivity();
 
         order_status = view.findViewById(R.id.order_status);
         order_status_text = view.findViewById(R.id.order_status_text);
@@ -89,47 +96,13 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
         recyclerViewProducts = view.findViewById(R.id.recyclerViewProducts);
         recyclerViewPayments = view.findViewById(R.id.recyclerViewPayments);
         btn_complete_order = view.findViewById(R.id.btn_complete_order);
+        btn_edit = view.findViewById(R.id.btn_edit);
 
-
-        activity = (MainActivity)getActivity();
 
         Bundle args = getArguments();
         final PendingOrderContent orderContent = args != null ? (PendingOrderContent) args.getSerializable(EXTRA_TEXT) : null;
         if(orderContent != null){
-
-            if(orderContent.getStatus().equalsIgnoreCase("Unpaid") && orderContent.getOrderStatus().equalsIgnoreCase("Pending")){
-                order_status_text.setText("Not Completed;");
-                payment_status_text.setText("Not Paid");
-                order_status.setImageResource(R.drawable.red_circle);
-            }else if(orderContent.getStatus().equalsIgnoreCase("Paid")  && orderContent.getOrderStatus().equalsIgnoreCase("Pending")){
-                order_status_text.setText("Not Completed");
-                payment_status_text.setText("Paid");
-                order_status.setImageResource(R.drawable.red_circle);
-            }else if(orderContent.getStatus().equalsIgnoreCase("Partially Paid") && orderContent.getOrderStatus().equalsIgnoreCase("Pending")){
-                order_status_text.setText("Not Completed");
-                payment_status_text.setText("Partially Paid");
-                order_status.setImageResource(R.drawable.red_circle);
-            }else{
-                order_status_text.setText("Completed");
-                payment_status_text.setText("Paid");
-                order_status.setImageResource(R.drawable.green_circle);
-            }
-
-
-            txt_amount_to_pay.setText(new DecimalFormat("#,###.00").format(Integer.valueOf(orderContent.getTotalAmount()))+ "/=");
-
-            order_number.setText(orderContent.getOrderNo().toString());
-            order_date.setText(orderContent.getOrderDate());
-
-            populateOrderProducts(orderContent.getOrderNo());
-           populatePaymentDetailsList(String.valueOf(orderContent.getOrderNo()));
-
-            btn_complete_order.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    postUpdateCompleteOrder(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
-                }
-            });
+            populateOrderDetails(orderContent);
         }
 
         CardView btn_receive_payment = view.findViewById(R.id.btn_receive_payment);
@@ -294,6 +267,7 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
 
                                 activity.showSuccessDialog("Success!", "Complete Order status has been submitted", "continue", true, "Pending Orders");
                                 populatePaymentDetailsList(String.valueOf(orderContent.getOrderNo()));
+                                refreshOrder((orderContent.getOrderNo()));
 
                                 //clearFields();
 
@@ -398,8 +372,6 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
             final PendingOrderContent orderContent = args != null ? (PendingOrderContent) args.getSerializable(EXTRA_TEXT) : null;
             if(orderContent != null){
 
-
-
                 MakePaymentRequest request1 = new MakePaymentRequest(
                         paymentdate,
                         paymentMethod,
@@ -425,6 +397,7 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
 
                                 activity.showSuccessDialog("Success!", "Payment edit details have been submitted", "continue", true,  null);
                                 populatePaymentDetailsList(String.valueOf(orderContent.getOrderNo()));
+                                refreshOrder((orderContent.getOrderNo()));
 
                                 //clearFields();
 
@@ -519,6 +492,103 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
         }
     }
 
+    private void populateOrderDetails(PendingOrderContent orderContent){
+
+        if(orderContent.getStatus().equalsIgnoreCase("Unpaid") && orderContent.getOrderStatus().equalsIgnoreCase("Pending")){
+            order_status_text.setText("Not Completed;");
+            payment_status_text.setText("Not Paid");
+            order_status.setImageResource(R.drawable.red_circle);
+        }else if(orderContent.getStatus().equalsIgnoreCase("Paid")  && orderContent.getOrderStatus().equalsIgnoreCase("Pending")){
+            order_status_text.setText("Not Completed");
+            payment_status_text.setText("Paid");
+            order_status.setImageResource(R.drawable.red_circle);
+        }else if(orderContent.getStatus().equalsIgnoreCase("Partially Paid") && orderContent.getOrderStatus().equalsIgnoreCase("Pending")){
+            order_status_text.setText("Not Completed");
+            payment_status_text.setText("Partially Paid");
+            order_status.setImageResource(R.drawable.red_circle);
+        }else{
+            order_status_text.setText("Completed");
+            payment_status_text.setText("Paid");
+            order_status.setImageResource(R.drawable.green_circle);
+        }
+
+
+        if(orderContent.getTotalAmount() != null)
+            txt_amount_to_pay.setText(new DecimalFormat("#,###.00").format(Integer.valueOf(orderContent.getTotalAmount()))+ "/=");
+        else
+            txt_amount_to_pay.setText(new DecimalFormat("#,###.00").format(0)+ "/=");
+
+        order_number.setText(orderContent.getOrderNo().toString());
+        order_date.setText(orderContent.getOrderDate());
+
+        populateOrderProducts(orderContent.getOrderNo());
+        populatePaymentDetailsList(String.valueOf(orderContent.getOrderNo()));
+
+        btn_complete_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postUpdateCompleteOrder(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+            }
+        });
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.displayFragment("Add Order", orderContent);
+            }
+        });
+    }
+
+
+    private void refreshOrder(Integer orderNo){
+        if (((MainActivity) getActivity()) != null) {
+            activity.no_content_after_filter.setVisibility(View.GONE);
+
+            Object object = AuthenticationResponse.listAll(AuthenticationResponse.class);
+            if (object != null)
+                if (((List<AuthenticationResponse>) object).size() > 0)
+                    authenticationResponse = ((List<AuthenticationResponse>) object).get(0);
+
+            if (authenticationResponse != null) {
+                ApiService apiService =
+                        ServiceGenerator.createService(ApiService.class, authenticationResponse.getUsername(), authenticationResponse.getPassword());
+
+                String filterText = ((MainActivity)getActivity()).et_search.getText().toString().trim();
+
+                Call<PendingOrdersResponse> call = apiService.getPendingPaymentOrders(filterText, 1, 10);
+                call.enqueue(new Callback<PendingOrdersResponse>() {
+                    @Override
+                    public void onResponse(Call<PendingOrdersResponse> call, Response<PendingOrdersResponse> response) {
+
+                        if (response.isSuccessful()) {
+                            if (response.code() == 200) {
+
+                                //List<PendingOrderContent> dataList = new ArrayList<>();
+                                for (int i = 0; i < response.body().getContent().size(); i++) {
+                                    PendingOrderContent orderContent = response.body().getContent().get(i);
+                                    if (orderContent.getOrderNo() == orderNo) {
+
+                                        Toast.makeText(activity, "Order details updated", Toast.LENGTH_SHORT).show();
+
+                                        populateOrderDetails(orderContent);
+
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<PendingOrdersResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
+    }
+
 
     private void postPayment(String paymentdate, String paymentMethod, String reference, String amount){
         if(authenticationResponse.isUserLogededIn()) {
@@ -553,6 +623,7 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
 
                                 activity.showSuccessDialog("Success!", "Payment has been submitted", "continue", true, null);
                                 populatePaymentDetailsList(String.valueOf(orderContent.getOrderNo()));
+                                refreshOrder((orderContent.getOrderNo()));
 
                                 //clearFields();
 
@@ -741,4 +812,7 @@ public class ViewIndividualOrdersFragment extends Fragment  implements DatePicke
     }
 
 
+
 }
+
+

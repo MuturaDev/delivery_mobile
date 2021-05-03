@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +38,10 @@ public class UnpaidOrdersFragment extends Fragment {
     private static final String EXTRA_TEXT = "text";
 
     private CardView btn_add_Order;
+
     private RecyclerView recyclerView;
 
-
     private ViewUnpaidOrdersAdapter adapter;
-
 
     private MainActivity activity;
 
@@ -86,14 +86,19 @@ public class UnpaidOrdersFragment extends Fragment {
                     @Override
                     public void onResponse(Call<PendingOrdersResponse> call, Response<PendingOrdersResponse> response) {
 
+
+
+
                         if (response.isSuccessful()) {
                             if (response.code() == 200) {
 
                                 List<PendingOrderContent> dataList = new ArrayList<>();
                                 for (int i = 0; i < response.body().getContent().size(); i++) {
                                     PendingOrderContent dataItem = response.body().getContent().get(i);
-                                    if (dataItem.getOrderStatus().equalsIgnoreCase("Pending")) {
+                                    //if (dataItem.getOrderStatus().equalsIgnoreCase("Pending")) {
                                         //filter
+
+
 
                                        // if(TextUtils.isEmpty(filterText)){
                                             dataList.add(dataItem);
@@ -103,8 +108,15 @@ public class UnpaidOrdersFragment extends Fragment {
 //                                                dataList.add(dataItem);
 //                                            }
 //                                        }
-                                    }
+                                    //}
                                 }
+
+
+
+                                for(PendingOrderContent item : dataList){
+                                    Log.d("UnpaidOrders", "Order Status: " + item.getOrderStatus());
+                                }
+
 
                                 adapter = new ViewUnpaidOrdersAdapter(activity, getActivity(), dataList);
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());

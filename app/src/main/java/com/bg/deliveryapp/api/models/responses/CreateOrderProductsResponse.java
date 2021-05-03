@@ -15,7 +15,7 @@ public class CreateOrderProductsResponse implements Serializable {
 
 
     private String totalPrice = "0";
-    private String quantity = "0";
+    private String quantity = "1";
     private boolean selected = false;
 
     public CreateOrderProductsResponse(String id, String desc) {
@@ -54,4 +54,5 @@ public class CreateOrderProductsResponse implements Serializable {
     public String getDesc() {
         return desc;
     }
+
 }
